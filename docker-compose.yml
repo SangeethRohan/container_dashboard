@@ -1,6 +1,8 @@
+version: "3.9"
+
 services:
   dashboard:
-    container_name: dev_dashboard
+    container_name: zeno_dashboard
 
     build:
       context: ./backend
@@ -16,8 +18,8 @@ services:
     environment:
       DASHBOARD_USER: admin
       DASHBOARD_PASS: admin
+      SECRET_KEY: super-secret-key
 
-      # Optional
       PYTHONUNBUFFERED: "1"
 
     volumes:
@@ -27,7 +29,7 @@ services:
       - no-new-privileges:true
 
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:9090/"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:9090/api/info"]
       interval: 30s
       timeout: 5s
       retries: 3

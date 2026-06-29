@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Users — Zeno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/pages.css">
+</head>
+<body class="manage-users-page">
+  <div class="page-topbar">
+    <a href="/" class="back-link">← Dashboard</a>
+    <h1>User management</h1>
+  </div>
+
+  <main class="page-main page-main-wide">
+    <div id="page-error" class="page-error"></div>
+
+    <section class="dash-summary" id="dash-summary">
+      <div class="dash-card">
+        <div class="dash-card-label">Users</div>
+        <div class="dash-card-value" id="stat-users">—</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">Containers created</div>
+        <div class="dash-card-value" id="stat-created">—</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">Containers deleted</div>
+        <div class="dash-card-value" id="stat-deleted">—</div>
+      </div>
+      <div class="dash-card">
+        <div class="dash-card-label">Operations logged</div>
+        <div class="dash-card-value" id="stat-ops">—</div>
+      </div>
+    </section>
+
+    <div class="form-card page-card">
+      <div class="section-head">
+        <div>
+          <h2>Create user</h2>
+          <div class="hint">Add a new dashboard account</div>
+        </div>
+      </div>
+
+      <div class="user-create-form user-create-form-wide">
+        <input type="text" id="new-username" placeholder="Username" />
+        <input type="password" id="new-password" placeholder="Password (min 4)" />
+        <select id="new-role" class="role-select">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+        <select id="new-tier" class="tier-select">
+          <option value="Core">Core</option>
+          <option value="Pro">Pro</option>
+          <option value="Elite">Elite</option>
+        </select>
+        <button type="button" class="primary" id="create-user-btn">Create</button>
+      </div>
+      <div class="user-msg" id="user-msg" hidden></div>
+    </div>
+
+    <div class="form-card page-card">
+      <div class="section-head">
+        <div>
+          <h2>All users</h2>
+          <div class="hint">Select users for bulk actions or click a row to view activity</div>
+        </div>
+        <div class="bulk-bar">
+          <label class="bulk-tier-label">
+            Tier
+            <select id="bulk-tier" class="tier-select">
+              <option value="Core">Core</option>
+              <option value="Pro">Pro</option>
+              <option value="Elite">Elite</option>
+            </select>
+          </label>
+          <button type="button" class="ghost-btn" id="bulk-tier-btn" disabled>Apply tier</button>
+          <button type="button" class="small-btn danger" id="bulk-delete-btn" disabled>Delete selected</button>
+        </div>
+      </div>
+
+      <div class="users-table-wrap">
+        <table class="users-table" id="users-table">
+          <thead>
+            <tr>
+              <th class="col-check"><input type="checkbox" id="select-all" title="Select all" /></th>
+              <th>User</th>
+              <th>Role</th>
+              <th>Tier</th>
+              <th>Created</th>
+              <th>Created ▲</th>
+              <th>Deleted</th>
+              <th>Ops</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody">
+            <tr><td colspan="9" class="empty-cell">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="form-card page-card" id="activity-panel">
+      <div class="section-head">
+        <div>
+          <h2 id="activity-title">Recent activity</h2>
+          <div class="hint" id="activity-sub">Latest container operations</div>
+        </div>
+        <button type="button" class="ghost-btn small-btn" id="activity-all-btn">Show all users</button>
+      </div>
+      <div class="activity-log" id="activity-log"></div>
+      <button type="button" class="ghost-btn ghost-load-more" id="load-more-activity" hidden>Load more</button>
+    </div>
+
+    <div class="page-actions">
+      <a href="/" class="page-btn page-btn-primary">Back to Dashboard</a>
+      <a href="/settings" class="page-btn page-btn-ghost">Settings</a>
+      <button type="button" class="page-btn page-btn-danger" id="logout-btn">Logout</button>
+    </div>
+  </main>
+
+  <script src="/static/js/manage-users.js"></script>
+</body>
+</html>

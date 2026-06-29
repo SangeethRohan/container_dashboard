@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zeno Login</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body class="login">
+  <div class="login-card">
+    <div class="login-brand"><span class="login-dot"></span> Zeno</div>
+    <div class="login-sub" id="auth-sub">Dashboard authentication</div>
+
+    <div class="login-error" id="err" hidden></div>
+
+    <form id="authForm" class="login-form">
+      <div class="login-field">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required />
+      </div>
+
+      <div class="login-field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required />
+      </div>
+
+      <button type="submit" id="submit-btn">Login</button>
+    </form>
+
+    <div class="login-switch">
+      <button type="button" class="login-toggle" id="mode-toggle">Create account</button>
+    </div>
+
+    <div class="login-foot">v2.0 • local control panel</div>
+  </div>
+
+  <script src="/static/js/login.js"></script>
+</body>
+</html>
