@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Zeno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/pages.css">
+</head>
+<body>
+  <div class="page-topbar">
+    <a href="/" class="back-link">← Dashboard</a>
+    <h1>Settings</h1>
+  </div>
+
+  <main class="page-main page-main-wide settings-cards">
+    <div id="page-error" class="page-error"></div>
+
+    <div class="form-card page-card">
+      <h2>Application</h2>
+      <div class="hint">Dashboard configuration and environment</div>
+
+      <div class="info-row">
+        <span class="label">Product</span>
+        <span class="value" id="product">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Version</span>
+        <span class="value" id="version">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Host</span>
+        <span class="value" id="host">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Database</span>
+        <span class="value" id="mongo">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Edition</span>
+        <span class="value" id="tier">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Your role</span>
+        <span class="value" id="role">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Dashboard URL</span>
+        <span class="value" id="dashboard-url">—</span>
+      </div>
+    </div>
+
+    <div class="form-card page-card">
+      <h2>Change password</h2>
+      <div class="hint">Verify your current password to set a new one</div>
+      <div class="password-form">
+        <input type="password" id="current-password" placeholder="Current password" autocomplete="current-password" />
+        <input type="password" id="new-password" placeholder="New password (min 4)" autocomplete="new-password" />
+        <button type="button" class="primary" id="change-password-btn">Update password</button>
+      </div>
+      <div class="user-msg" id="password-msg" hidden></div>
+    </div>
+
+    <div class="form-card page-card">
+      <h2>Notifications</h2>
+      <div class="hint">Control which alert types appear on the dashboard badge and banner. Disabled types still appear in the Alerts page.</div>
+      <div class="notification-toggles" id="notification-toggles"></div>
+      <div class="user-msg" id="notification-msg" hidden></div>
+    </div>
+
+    <div class="form-card page-card admin-only" id="tier-settings" hidden>
+      <h2>Admin edition</h2>
+      <div class="hint">Admin only — default tier Core will be assigned to newly registered users. Select a tier below to change your personal admin edition.</div>
+      <div class="tier-picker" id="tier-picker"></div>
+      <div class="tier-readonly" id="tier-readonly" hidden></div>
+      <div class="tier-save-msg" id="tier-save-msg" hidden></div>
+    </div>
+
+    <div class="page-actions">
+      <a href="/" class="page-btn page-btn-primary">Back to Dashboard</a>
+      <a href="/profile" class="page-btn page-btn-ghost">Profile</a>
+      <button type="button" class="page-btn page-btn-danger" id="logout-btn">Logout</button>
+    </div>
+  </main>
+
+  <script src="/static/js/settings.js"></script>
+</body>
+</html>

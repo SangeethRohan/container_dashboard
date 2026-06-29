@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — Zeno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+  <link rel="stylesheet" href="/static/css/pages.css">
+</head>
+<body class="profile-page">
+  <div class="page-topbar">
+    <a href="/" class="back-link">← Dashboard</a>
+    <h1>Profile</h1>
+  </div>
+
+  <main class="page-main">
+    <div id="page-error" class="page-error"></div>
+
+    <div class="form-card page-card">
+      <h2>Account</h2>
+      <div class="hint">Signed-in dashboard user</div>
+
+      <div class="info-row">
+        <span class="label">Username</span>
+        <span class="value" id="username">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Host</span>
+        <span class="value" id="host">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Product</span>
+        <span class="value" id="product">—</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Edition</span>
+        <span class="value" id="tier">—</span>
+      </div>
+    </div>
+
+    <div class="page-actions">
+      <a href="/" class="page-btn page-btn-primary">Back to Dashboard</a>
+      <a href="/settings" class="page-btn page-btn-ghost">Settings</a>
+    </div>
+  </main>
+
+  <script>
+    async function loadProfile() {
+      const errEl = document.getElementById("page-error");
+      try {
+        const res = await fetch("/api/v1/profile", { credentials: "include" });
+        if (res.status === 401) {
+          location.href = "/login";
+          return;
+        }
+        const p = await res.json();
+        if (!res.ok) throw new Error(p.error || "Failed to load profile");
+        document.getElementById("username").textContent = p.username;
+        document.getElementById("host").textContent = p.host;
+        document.getElementById("product").textContent = p.product;
+        document.getElementById("tier").textContent = p.tier || "—";
+      } catch (e) {
+        errEl.textContent = e.message;
+        errEl.style.display = "block";
+      }
+    }
+
+    loadProfile();
+  </script>
+</body>
+</html>
