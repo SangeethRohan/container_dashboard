@@ -186,7 +186,7 @@ Feature matrix stored in `settings` document `key: tier_features`. Defaults in `
 
 ### Primary admin
 
-The seed user (`DASHBOARD_USER`) receives `is_primary: true`:
+The seed user (`DASHBOARD_USER`) receives `is_primary: true` and `tier: Elite`:
 
 - Cannot be deleted (`delete_user` raises).
 - `tier` and `role` cannot change via `PATCH /users/<username>`.
