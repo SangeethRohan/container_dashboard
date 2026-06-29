@@ -1084,7 +1084,15 @@
     }
 
     function groupOrder(g) {
-      const order = ['My Databases', 'Databases', 'Tools & UI', 'Automation', 'Other'];
+      const order = [
+        'Core Apps',
+        'My Databases',
+        'Databases',
+        'Tools & UI',
+        'Automation',
+        'Other'
+      ];
+
       const i = order.indexOf(g);
       return i === -1 ? order.length : i;
     }
@@ -1153,7 +1161,13 @@
       let html = '';
       for (const g of sortedGroups) {
         html += `<div class="group"><div class="group-label">${g}</div>`;
-        for (const c of groups[g]) html += renderRow(c);
+        const sortedContainers = groups[g].sort((a, b) => {
+          if (a.name === 'dev_dashboard') return -1;
+          if (b.name === 'dev_dashboard') return 1;
+          return a.name.localeCompare(b.name);
+        });
+
+        for (const c of sortedContainers) html += renderRow(c);
         html += `</div>`;
       }
       content.innerHTML = html;
@@ -1188,7 +1202,7 @@
       <div class="actions">
         ${renderActionsHtml(c)}
       </div>
-      ${c.open_port ? `<a class="open-link" href="http://${location.hostname}:${c.open_port}" target="_blank" rel="noopener">Open ↗</a>` : ''}
+      ${(c.open_port !== null && c.open_port !== undefined) ? `<a class="open-link" href="http://${location.hostname}:${c.open_port}" target="_blank" rel="noopener">Open ↗</a>` : ''}
     </div>
     <div class="details ${isOpen ? 'open' : ''}" id="details-${c.name}">
       <div class="ports">Ports: <span>${ports}</span></div>

@@ -116,7 +116,12 @@ def serialize(container):
 
     is_user_db = labels.get(LABEL_KIND) == USER_DB_LABEL_VALUE
 
-    group = "My Databases" if is_user_db else GROUPS.get(name, "Other")
+    if name == "dev_dashboard":
+        group = "Core Apps"
+    elif is_user_db:
+        group = "My Databases"
+    else:
+        group = GROUPS.get(name, "Other")
 
     # -------------------------
     # WEB UI DETECTION (IMPORTANT FIX)
@@ -204,7 +209,18 @@ def serialize(container):
 def list_containers():
     containers = client.containers.list(all=True)
     data = [serialize(c) for c in containers]
-    data.sort(key=lambda c: (c["group"], c["name"]))
+    GROUP_PRIORITY = {
+        "Core Apps": 0,
+        "My Databases": 1,
+        "Databases": 1,
+        "Websites": 2,
+        "Tools & UI": 3,
+        "Automation": 4,
+        "Other": 99,
+    }
+
+    data.sort(key=lambda c: (GROUP_PRIORITY.get(c["group"], 99), c["name"]))
+    
     return jsonify(data)
 
 
